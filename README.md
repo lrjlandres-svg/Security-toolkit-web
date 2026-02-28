@@ -54,5 +54,5 @@ This submission addresses the mentor's feedback regarding the **web application 
 
 1. **Clone or download the project**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/lrjlandres-svg/Security-toolkit-web.git
    cd security_toolkit_web
