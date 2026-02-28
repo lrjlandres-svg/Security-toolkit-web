@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Home - MO-IT142 Security Toolkit{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary">
+        <i class="bi bi-shield-check"></i> MO-IT142 Security Toolkit
+    </h1>
+    <p class="lead text-muted">
+        Integrated Security Tools for Web & Password Security
+    </p>
+</div>
+
+<div class="row g-4">
+    <!-- Tool 1: Password Strength Analyzer -->
+    <div class="col-md-4">
+        <div class="card h-100 border-primary shadow-sm hover-shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-key"></i> Password Strength Analyzer</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Evaluate password security against 7 criteria:
+                    <ul class="mt-2">
+                        <li>Length (minimum 12 characters)</li>
+                        <li>Complexity (uppercase, lowercase, numbers, symbols)</li>
+                        <li>Dictionary word checks</li>
+                        <li>Common password detection</li>
+                    </ul>
+                </p>
+                <a href="{{ url_for('password_strength') }}" class="btn btn-primary w-100">
+                    Launch Tool →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool 2: Password Hasher & Storage -->
+    <div class="col-md-4">
+        <div class="card h-100 border-success shadow-sm hover-shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-file-lock"></i> Password Hasher & Storage</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Generate strong passwords with SHA-256 hashing:
+                    <ul class="mt-2">
+                        <li>Generate cryptographically secure passwords</li>
+                        <li>Hash with 256-bit salt</li>
+                        <li>Save to passwords.txt in Downloads folder</li>
+                        <li>Append mode (never overwrite)</li>
+                    </ul>
+                </p>
+                <a href="{{ url_for('password_hasher') }}" class="btn btn-success w-100">
+                    Launch Tool →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool 3: Web Form Validator -->
+    <div class="col-md-4">
+        <div class="card h-100 border-danger shadow-sm hover-shadow">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="bi bi-ui-checks"></i> Web Form Validator & Sanitizer</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Validate and sanitize web form inputs:
+                    <ul class="mt-2">
+                        <li>Full Name validation</li>
+                        <li>Email address validation</li>
+                        <li>Username validation</li>
+                        <li>Message sanitization (XSS/SQLi protection)</li>
+                    </ul>
+                </p>
+                <a href="{{ url_for('web_form_validator') }}" class="btn btn-danger w-100">
+                    Launch Tool →
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-warning mt-5">
+    <h5><i class="bi bi-exclamation-triangle"></i> Important Notice</h5>
+    <p class="mb-0">
+        This is a <strong>web application</strong> version of the security toolkit, built with Flask framework.
+        All security validation logic from the original desktop application has been preserved and enhanced for web deployment.
+    </p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.hover-shadow:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+</style>
+{% endblock %}

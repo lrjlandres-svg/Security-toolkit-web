@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Web Form Validator & Sanitizer{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-danger text-white">
+        <h3 class="mb-0"><i class="bi bi-ui-checks"></i> Web Form Validator & Sanitizer</h3>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-info">
+            <h5><i class="bi bi-info-circle"></i> Form Validation Rules:</h5>
+            <ul class="mb-0">
+                <li><strong>Full Name:</strong> No numbers/special chars (except spaces, hyphens, apostrophes), min 2 chars</li>
+                <li><strong>Email:</strong> Must have @ and domain (.com, .org), no spaces, can't start with special char</li>
+                <li><strong>Username:</strong> Letters/numbers/underscores only, 4-16 chars, can't start with number</li>
+                <li><strong>Message:</strong> Max 250 chars, no HTML/SQL injection patterns</li>
+            </ul>
+        </div>
+
+        <form method="POST" class="mt-4">
+            <div class="row g-3">
+                <!-- Full Name -->
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Full Name:</strong></label>
+                    <input type="text" name="full_name" class="form-control" 
+                           value="{{ form_data.full_name if form_data else '' }}" required>
+                </div>
+
+                <!-- Email Address -->
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Email Address:</strong></label>
+                    <input type="email" name="email" class="form-control" 
+                           value="{{ form_data.email if form_data else '' }}" required>
+                </div>
+
+                <!-- Username -->
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Username:</strong></label>
+                    <input type="text" name="username" class="form-control" 
+                           value="{{ form_data.username if form_data else '' }}" required>
+                </div>
+
+                <!-- Message -->
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Message / Comment:</strong></label>
+                    <textarea name="message" class="form-control" rows="4" 
+                              required>{{ form_data.message if form_data else '' }}</textarea>
+                    <small class="text-muted">Max 250 characters</small>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg w-100 mt-4">
+                <i class="bi bi-check-circle"></i> Validate Form
+            </button>
+        </form>
+
+        {% if results %}
+        <hr class="my-4">
+        
+        {% if results.has_errors %}
+        <div class="alert alert-danger">
+            <h5><i class="bi bi-x-circle"></i> Validation Errors:</h5>
+            <ul class="mb-0">
+                {% for field, data in results.validation.items() %}
+                    {% if not data.valid %}
+                    <li>{{ data.message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Validation Results:</h5>
+                <div class="list-group">
+                    {% for field, data in results.validation.items() %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ field.replace('_', ' ').title() }}
+                        {% if data.valid %}
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Valid</span>
+                        {% else %}
+                        <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Invalid</span>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <h5>Sanitized Output:</h5>
+                <div class="card">
+                    <div class="card-body">
+                        {% for field, value in results.final_output.items() %}
+                        <p class="mb-2"><strong>{{ field.replace('_', ' ').title() }}:</strong> 
+                        {% if field in results.sanitization and results.sanitization[field].changed %}
+                            <span class="text-warning">[SANITIZED]</span> 
+                        {% endif %}
+                        {{ value }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                {% if results.sanitized_count > 0 %}
+                <div class="alert alert-warning mt-3">
+                    <i class="bi bi-exclamation-triangle"></i> 
+                    {{ results.sanitized_count }} field(s) were sanitized for security.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
