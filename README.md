@@ -56,3 +56,20 @@ This submission addresses the mentor's feedback regarding the **web application 
    ```bash
    git clone https://github.com/lrjlandres-svg/Security-toolkit-web.git
    cd security_toolkit_web
+   
+ ### Usage Guide
+### Password Strength Analyzer
+- Navigate to "Password Strength" from the menu
+- Enter a password in the input field
+- Click "Analyze Password Strength"
+- Review the detailed security analysis and recommendations
+### Password Hasher & Storage
+- Navigate to "Password Hasher" from the menu
+- Click "Generate Secure Password" or enter your own
+- Click "Save Password Entry"
+- View confirmation with timestamp and hash
+### Web Form Validator
+- Navigate to "Form Validator" from the menu
+- Fill in all form fields (Full Name, Email, Username, Message)
+- Click "Validate Form"
+- Review validation results and sanitized output
